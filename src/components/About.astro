@@ -1,5 +1,5 @@
 ---
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Star } from "lucide-react";
 import { Image } from "astro:assets";
 import kitchen1 from "../assets/images/about/kitchen-1.png";
 import kitchen2 from "../assets/images/about/kitchen-2.png";
@@ -28,8 +28,6 @@ import { siteContent } from "../data/siteContent";
                                 src={kitchen1}
                                 alt={siteContent.about.images.kitchen1.alt}
                                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                widths={[300, 400, 600, kitchen1.width]}
-                                sizes="(max-width: 768px) 50vw, 25vw"
                             />
                             <div
                                 class="absolute inset-0 bg-brand-black/10 group-hover:bg-transparent transition-colors duration-500"
@@ -43,8 +41,6 @@ import { siteContent } from "../data/siteContent";
                                 src={wineCellar}
                                 alt={siteContent.about.images.wineCellar.alt}
                                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                widths={[300, 400, 600, wineCellar.width]}
-                                sizes="(max-width: 768px) 50vw, 25vw"
                             />
                             <div
                                 class="absolute inset-0 bg-brand-black/10 group-hover:bg-transparent transition-colors duration-500"
@@ -79,8 +75,6 @@ import { siteContent } from "../data/siteContent";
                                 src={kitchen2}
                                 alt={siteContent.about.images.kitchen2.alt}
                                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                widths={[300, 400, 600, kitchen2.width]}
-                                sizes="(max-width: 768px) 50vw, 25vw"
                             />
                             <div
                                 class="absolute inset-0 bg-brand-black/10 group-hover:bg-transparent transition-colors duration-500"
@@ -127,9 +121,22 @@ import { siteContent } from "../data/siteContent";
                     </ul>
                 </div>
 
-                <div class="mt-8 flex items-center gap-2">
-                    <div class="flex">
-                        <span class="text-brand-terra">★★★★★</span>
+                <div class="mt-8 flex items-center gap-3">
+                    <div class="flex text-brand-green gap-1">
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                        <div class="relative">
+                            <Star
+                                className="w-5 h-5 text-brand-green/30 fill-current"
+                            />
+                            <div
+                                class="absolute inset-0 overflow-hidden w-[40%]"
+                            >
+                                <Star className="w-5 h-5 fill-current" />
+                            </div>
+                        </div>
                     </div>
                     <p class="text-brand-black/80 text-lg">
                         <span class="font-bold text-brand-black"

@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Bodoni Sans Display";
+  src: url("/fonts/BodoniSansDisplay.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --color-brand-green: #2A3C24;
   --color-brand-light-green: #5D6D45;
@@ -12,6 +20,7 @@
 
   --font-sans: "Inter", sans-serif;
   --font-serif: "Playfair Display", serif;
+  --font-bodoni: "Bodoni Sans Display", sans-serif;
 
   --animate-fade-in: fade-in 0.8s ease-out forwards;
   --animate-slide-up: slide-up 1s ease-out forwards;

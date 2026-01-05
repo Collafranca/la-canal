@@ -1,16 +1,14 @@
 ---
 import { Phone, Calendar, Menu, X } from "lucide-react";
-import { Image } from "astro:assets";
-import logo from "../assets/logo.png";
 import { siteContent } from "../data/siteContent";
 ---
 
 <header
     id="main-header"
-    class="fixed w-full top-0 z-50 transition-all duration-500 border-b border-transparent"
+    class="fixed w-full top-0 z-50 transition-shadow duration-300 border-b border-transparent"
 >
     <div
-        class="max-w-7xl mx-auto px-6 md:px-12 h-24 grid grid-cols-2 md:grid-cols-3 items-center"
+        class="max-w-7xl mx-auto px-6 md:px-12 h-20 md:h-24 grid grid-cols-2 md:grid-cols-3 items-center transition-all duration-500"
     >
         <nav class="hidden md:flex items-center gap-8 justify-start">
             {
@@ -26,13 +24,15 @@ import { siteContent } from "../data/siteContent";
         </nav>
 
         <div class="flex items-center md:justify-center justify-start">
-            <a href="/" class="group relative z-50 block">
-                <Image
-                    src={logo}
-                    alt="Restaurant La Canal"
-                    class="h-10 md:h-14 w-auto object-contain transition-all duration-300"
-                    loading="eager"
-                />
+            <a
+                href="/"
+                class="group relative z-50 flex items-center justify-center"
+            >
+                <span
+                    class="font-bodoni text-[#B16050] text-4xl md:text-6xl uppercase tracking-widest leading-none -mt-3 whitespace-nowrap"
+                >
+                    La Canal
+                </span>
             </a>
         </div>
 
@@ -109,6 +109,7 @@ import { siteContent } from "../data/siteContent";
 
 <script>
     const header = document.getElementById("main-header");
+    const headerInner = header?.querySelector("div");
     const menuToggle = document.getElementById("menu-toggle");
     const mobileMenu = document.getElementById("mobile-menu");
     const iconMenu = document.getElementById("icon-menu");
@@ -116,21 +117,15 @@ import { siteContent } from "../data/siteContent";
 
     window.addEventListener("scroll", () => {
         if (window.scrollY > 50) {
-            header?.classList.add(
-                "bg-brand-white/95",
-                "backdrop-blur-md",
-                "shadow-sm",
-                "py-2",
-            );
-            header?.classList.replace("h-24", "h-20");
+            header?.classList.add("bg-brand-white", "shadow-sm", "py-0");
+            // Compact height on scroll
+            headerInner?.classList.remove("h-20", "md:h-24");
+            headerInner?.classList.add("h-16", "md:h-20");
         } else {
-            header?.classList.remove(
-                "bg-brand-white/95",
-                "backdrop-blur-md",
-                "shadow-sm",
-                "py-2",
-            );
-            header?.classList.replace("h-20", "h-24");
+            header?.classList.remove("bg-brand-white", "shadow-sm", "py-0");
+            // Default height at top
+            headerInner?.classList.remove("h-16", "md:h-20");
+            headerInner?.classList.add("h-20", "md:h-24");
         }
     });
 

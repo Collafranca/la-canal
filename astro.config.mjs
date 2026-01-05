@@ -11,9 +11,5 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  integrations: [react()],
-
-  build: {
-    inlineStylesheets: 'always'
-  }
+  integrations: [react()]
 });
