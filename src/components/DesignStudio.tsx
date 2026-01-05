@@ -55,7 +55,7 @@ const DesignStudio: React.FC = () => {
                             }}></div>
 
                             <div className="relative z-10 text-center">
-                                <h3 className="text-9xl mb-6 leading-none whitespace-nowrap" style={{ fontFamily: 'Bodoni Sans Display, serif' }}>
+                                <h3 className="leading-none whitespace-nowrap" style={{ fontSize: '260px', fontFamily: 'Bodoni Sans Display, serif' }}>
                                     {ogTitle}
                                 </h3>
                                 {ogSubtitle && (
