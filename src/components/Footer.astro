@@ -1,0 +1,144 @@
+---
+import { MapPin, Phone, Clock, Instagram, ArrowUpRight } from "lucide-react";
+import { Image } from "astro:assets";
+import logo from "../assets/logo.png";
+import { siteContent } from "../data/siteContent";
+---
+
+<footer
+    class="bg-brand-black text-brand-white pt-16 md:pt-24 pb-12 relative overflow-hidden"
+>
+    <div
+        class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-brand-white/20 to-transparent"
+    >
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+        <div class="grid md:grid-cols-12 gap-12 md:gap-16 mb-12 md:mb-24">
+            <div class="md:col-span-5">
+                <div class="mb-8 block">
+                    <Image
+                        src={logo}
+                        alt="Restaurant La Canal"
+                        class="h-14 md:h-16 w-auto object-contain"
+                    />
+                </div>
+                <p
+                    class="text-brand-white/60 mb-8 leading-relaxed text-lg max-w-sm font-light"
+                >
+                    {siteContent.footer.description}
+                </p>
+                <div class="flex gap-4">
+                    <a
+                        href={siteContent.footer.socials.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-12 h-12 rounded-full border border-brand-white/20 flex items-center justify-center hover:bg-brand-white hover:text-brand-black transition-all group"
+                        aria-label="Instagram"
+                    >
+                        <Instagram
+                            className="w-5 h-5 group-hover:scale-110 transition-transform"
+                        />
+                    </a>
+                </div>
+            </div>
+
+            <div id="contacte" class="md:col-span-4">
+                <h4
+                    class="font-sans text-xs font-bold uppercase tracking-widest text-brand-white/40 mb-8"
+                >
+                    {siteContent.footer.contact.title}
+                </h4>
+                <ul class="space-y-6">
+                    <li class="flex items-start gap-4 group cursor-pointer">
+                        <MapPin
+                            className="w-5 h-5 text-brand-terra mt-1 flex-shrink-0 group-hover:text-brand-white transition-colors"
+                        />
+                        <div class="flex flex-col gap-4 w-full">
+                            <a
+                                href={siteContent.footer.contact.address.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-brand-white/80 hover:text-brand-white transition-colors text-lg"
+                            >
+                                {siteContent.footer.contact.address.text}
+                            </a>
+                            <iframe
+                                src={siteContent.footer.contact.address
+                                    .mapEmbed}
+                                width="100%"
+                                height="150"
+                                style="border:0;"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                class="rounded-lg opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
+                                title="Ubicació del Restaurant La Canal a Google Maps"
+                            ></iframe>
+                        </div>
+                    </li>
+                    <li class="flex items-center gap-4 group">
+                        <Phone
+                            className="w-5 h-5 text-brand-terra flex-shrink-0 group-hover:text-brand-white transition-colors"
+                        />
+                        <a
+                            href={siteContent.footer.contact.phone.href}
+                            class="text-brand-white/80 hover:text-brand-white transition-colors text-lg"
+                        >
+                            {siteContent.footer.contact.phone.text}
+                        </a>
+                    </li>
+                </ul>
+                <div class="mt-10">
+                    <a
+                        href={siteContent.footer.contact.phone.href}
+                        class="inline-flex items-center gap-2 bg-brand-white text-brand-black px-8 py-3 font-medium text-lg hover:bg-brand-terra hover:text-white transition-all shadow-sm group uppercase tracking-wider"
+                    >
+                        {siteContent.footer.contact.cta}
+                        <ArrowUpRight
+                            className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                        />
+                    </a>
+                </div>
+            </div>
+
+            <div class="md:col-span-3">
+                <h4
+                    class="font-sans text-xs font-bold uppercase tracking-widest text-brand-white/40 mb-8"
+                >
+                    {siteContent.footer.hours.title}
+                </h4>
+                <ul class="space-y-4 text-brand-white/80">
+                    {
+                        siteContent.footer.hours.items.map((item) => (
+                            <li class="flex flex-col border-l border-brand-white/10 pl-4 py-1">
+                                <span class="text-sm text-brand-white/40 uppercase tracking-wider mb-1">
+                                    {item.label}
+                                </span>
+                                {item.time1 && (
+                                    <span class="text-lg font-medium">
+                                        {item.time1}
+                                    </span>
+                                )}
+                                {item.time2 && (
+                                    <span class="text-lg font-medium">
+                                        {item.time2}
+                                    </span>
+                                )}
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <div
+            class="border-t border-brand-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-brand-white/40 text-sm"
+        >
+            <p>
+                &copy; {new Date().getFullYear()}
+                {siteContent.footer.copyright}
+            </p>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,168 @@
+---
+import { Phone, Calendar, Menu, X } from "lucide-react";
+import { Image } from "astro:assets";
+import logo from "../assets/logo.png";
+import { siteContent } from "../data/siteContent";
+---
+
+<header
+    id="main-header"
+    class="fixed w-full top-0 z-50 transition-all duration-500 border-b border-transparent"
+>
+    <div
+        class="max-w-7xl mx-auto px-6 md:px-12 h-24 grid grid-cols-2 md:grid-cols-3 items-center"
+    >
+        <nav class="hidden md:flex items-center gap-8 justify-start">
+            {
+                siteContent.header.nav.map(({ label, href }) => (
+                    <a
+                        href={href}
+                        class="text-brand-black/80 hover:text-brand-green text-xs font-bold uppercase tracking-widest transition-all hover:-translate-y-0.5"
+                    >
+                        {label}
+                    </a>
+                ))
+            }
+        </nav>
+
+        <div class="flex items-center md:justify-center justify-start">
+            <a href="/" class="group relative z-50 block">
+                <Image
+                    src={logo}
+                    alt="Restaurant La Canal"
+                    class="h-10 md:h-14 w-auto object-contain transition-all duration-300"
+                    loading="eager"
+                />
+            </a>
+        </div>
+
+        <div class="hidden md:flex items-center justify-end gap-6">
+            <a
+                href={`tel:${siteContent.footer.contact.phone.href.replace("tel:", "")}`}
+                class="flex items-center gap-2 text-brand-black/70 hover:text-brand-green transition-colors font-medium text-xs tracking-wide"
+            >
+                <span
+                    class="border-b border-transparent hover:border-brand-green transition-all"
+                >
+                    {siteContent.header.phone}
+                </span>
+            </a>
+            <a
+                href="#contacte"
+                class="bg-brand-green text-white px-6 py-2.5 rounded-none font-medium hover:bg-brand-black transition-all shadow-sm hover:shadow-lg text-xs uppercase tracking-wider"
+            >
+                {siteContent.header.cta}
+            </a>
+        </div>
+
+        <div class="flex justify-end md:hidden">
+            <button
+                id="menu-toggle"
+                class="p-2 text-brand-black z-50 relative"
+                aria-label="Menu"
+            >
+                <Menu
+                    className="w-8 h-8 transition-transform duration-300"
+                    id="icon-menu"
+                />
+                <X
+                    className="w-8 h-8 transition-transform duration-300 opacity-0 absolute top-2 left-2 rotate-90"
+                    id="icon-close"
+                />
+            </button>
+        </div>
+    </div>
+</header>
+
+<div
+    id="mobile-menu"
+    class="fixed inset-0 bg-brand-white z-40 flex flex-col justify-center items-center opacity-0 pointer-events-none transition-opacity duration-500"
+>
+    <div class="flex flex-col gap-6 text-center">
+        {
+            siteContent.header.nav.map(({ label, href }) => (
+                <a
+                    href={href}
+                    class="font-serif text-4xl md:text-5xl text-brand-black hover:text-brand-green transition-colors font-bold"
+                >
+                    {label}
+                </a>
+            ))
+        }
+    </div>
+
+    <div class="mt-12 flex flex-col items-center gap-4 w-full max-w-xs px-6">
+        <a
+            href="#contacte"
+            class="w-full bg-brand-green text-white py-4 text-center font-medium text-lg uppercase tracking-wider"
+        >
+            Reservar Taula
+        </a>
+        <a
+            href={siteContent.footer.contact.phone.href}
+            class="w-full border border-brand-green text-brand-green py-4 text-center font-medium text-lg uppercase tracking-wider"
+        >
+            Trucar
+        </a>
+    </div>
+</div>
+
+<script>
+    const header = document.getElementById("main-header");
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const iconMenu = document.getElementById("icon-menu");
+    const iconClose = document.getElementById("icon-close");
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+            header?.classList.add(
+                "bg-brand-white/95",
+                "backdrop-blur-md",
+                "shadow-sm",
+                "py-2",
+            );
+            header?.classList.replace("h-24", "h-20");
+        } else {
+            header?.classList.remove(
+                "bg-brand-white/95",
+                "backdrop-blur-md",
+                "shadow-sm",
+                "py-2",
+            );
+            header?.classList.replace("h-20", "h-24");
+        }
+    });
+
+    if (menuToggle && mobileMenu && iconMenu && iconClose) {
+        menuToggle.addEventListener("click", () => {
+            const isOpen = !mobileMenu.classList.contains(
+                "pointer-events-none",
+            );
+
+            if (isOpen) {
+                mobileMenu.classList.add("opacity-0", "pointer-events-none");
+                document.body.classList.remove("overflow-hidden");
+
+                iconMenu.classList.remove("opacity-0", "-rotate-90");
+                iconClose.classList.add("opacity-0", "rotate-90");
+            } else {
+                mobileMenu.classList.remove("opacity-0", "pointer-events-none");
+                document.body.classList.add("overflow-hidden");
+
+                iconMenu.classList.add("opacity-0", "-rotate-90");
+                iconClose.classList.remove("opacity-0", "rotate-90");
+            }
+        });
+
+        mobileMenu.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => {
+                mobileMenu.classList.add("opacity-0", "pointer-events-none");
+                document.body.classList.remove("overflow-hidden");
+
+                iconMenu.classList.remove("opacity-0", "-rotate-90");
+                iconClose.classList.add("opacity-0", "rotate-90");
+            });
+        });
+    }
+</script>

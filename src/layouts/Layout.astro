@@ -1,0 +1,56 @@
+---
+import "../styles/global.css";
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const {
+	title,
+	description = "Restaurant La Canal a Olot. Cuina casolana i tradicional amb més de 30 anys d'història. Brandada, entrecot, i plats de temporada.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="ca">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<title>{title}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body
+		class="antialiased selection:bg-brand-terra selection:text-white overflow-x-hidden"
+	>
+		<slot />
+		<script>
+			import Lenis from "lenis";
+
+			const lenis = new Lenis();
+
+			function raf(time: number) {
+				lenis.raf(time);
+				requestAnimationFrame(raf);
+			}
+
+			requestAnimationFrame(raf);
+
+			document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+				anchor.addEventListener("click", function (e) {
+					e.preventDefault();
+					const target = e.currentTarget as HTMLAnchorElement;
+					lenis.scrollTo(target.getAttribute("href")!);
+				});
+			});
+		</script>
+	</body>
+</html>
