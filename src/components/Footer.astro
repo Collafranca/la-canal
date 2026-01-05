@@ -21,6 +21,8 @@ import { siteContent } from "../data/siteContent";
                         src={logo}
                         alt="Restaurant La Canal"
                         class="h-14 md:h-16 w-auto object-contain"
+                        widths={[120, 240, logo.width]}
+                        sizes="(max-width: 768px) 60px, 70px"
                     />
                 </div>
                 <p
@@ -63,18 +65,22 @@ import { siteContent } from "../data/siteContent";
                             >
                                 {siteContent.footer.contact.address.text}
                             </a>
-                            <iframe
-                                src={siteContent.footer.contact.address
+                            <div
+                                id="map-container"
+                                data-map={siteContent.footer.contact.address
                                     .mapEmbed}
-                                width="100%"
-                                height="150"
-                                style="border:0;"
-                                allowfullscreen=""
-                                loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"
-                                class="rounded-lg opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
-                                title="Ubicació del Restaurant La Canal a Google Maps"
-                            ></iframe>
+                                class="rounded-lg opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 overflow-hidden bg-brand-stone relative h-[150px] flex items-center justify-center cursor-pointer group/map"
+                            >
+                                <div
+                                    class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/concrete-wall.png')] opacity-10"
+                                >
+                                </div>
+                                <span
+                                    class="relative z-10 bg-brand-white/90 px-4 py-2 text-xs font-bold uppercase tracking-widest text-brand-black shadow-sm group-hover/map:bg-brand-green group-hover/map:text-white transition-colors"
+                                >
+                                    Carregar Mapa
+                                </span>
+                            </div>
                         </div>
                     </li>
                     <li class="flex items-center gap-4 group">
@@ -142,3 +148,40 @@ import { siteContent } from "../data/siteContent";
         </div>
     </div>
 </footer>
+
+<script>
+    const mapContainer = document.getElementById("map-container");
+
+    if (mapContainer) {
+        mapContainer.addEventListener("click", () => {
+            const mapUrl = mapContainer.getAttribute("data-map");
+            if (mapUrl) {
+                const iframe = document.createElement("iframe");
+                iframe.src = mapUrl;
+                iframe.width = "100%";
+                iframe.height = "150";
+                iframe.style.border = "0";
+                iframe.allowFullscreen = true;
+                iframe.loading = "lazy";
+                iframe.referrerPolicy = "no-referrer-when-downgrade";
+                iframe.title = "Ubicació del Restaurant La Canal a Google Maps";
+                iframe.className = "w-full h-full";
+
+                mapContainer.innerHTML = "";
+                mapContainer.appendChild(iframe);
+
+                // Remove interactive classes once loaded
+                mapContainer.classList.remove(
+                    "cursor-pointer",
+                    "group/map",
+                    "grayscale",
+                    "hover:grayscale-0",
+                    "flex",
+                    "items-center",
+                    "justify-center",
+                );
+                mapContainer.classList.add("block");
+            }
+        });
+    }
+</script>
